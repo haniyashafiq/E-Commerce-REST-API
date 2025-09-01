@@ -1,11 +1,13 @@
 const express = require("express")
 const app = express()
+const bodyparser = require("body-parser")
 
 const db = require("./db")
 const productRoutes = require("./controllers/products.controller")
 
 
 //middleware
+app.use(bodyparser.json())
 app.use("/api/products", productRoutes)
 
 app.use((err,req,res,next) => {
