@@ -4,11 +4,14 @@ const bodyparser = require("body-parser")
 
 const db = require("./db")
 const productRoutes = require("./controllers/products.controller")
-
+const userRoutes = require("./controllers/users.controller");
+const orderRoutes = require("./controllers/orders.controller");
 
 //middleware
 app.use(bodyparser.json())
 app.use("/api/products", productRoutes)
+app.use("/api/users", userRoutes);
+app.use("/api/orders", orderRoutes);
 
 app.use((err,req,res,next) => {
     console.log(err)

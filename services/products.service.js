@@ -1,7 +1,7 @@
 const db = require("../db")
 
 module.exports.getAllProducts = async () => {
-    const [[records]] = await db.query ("SELECT * FROM products")
+    const [records] = await db.query ("SELECT * FROM products")
     return records;
 }
 
@@ -18,4 +18,5 @@ module.exports.deleteProduct = async (id) => {
 module.exports.addOrEditProduct = async (obj,id=0) => {
     const [[[{affectedRows}]]] = await db.query("CALL usp_product_add_or_edit(?,?,?,?,?)", [id , obj.name, obj.price, obj.category, obj.stock])
     return affectedRows;
+    
 }

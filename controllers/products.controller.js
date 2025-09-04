@@ -1,5 +1,6 @@
 const express = require("express")
 const router =  express.Router()
+const auth = require("../middleware/auth");
 
 const service = require("../services/products.service")
 
@@ -18,7 +19,7 @@ router.get("/:id", async (req,res) => {
    
 })
 
-router.delete("/:id", async (req,res) => {
+router.delete("/:id",auth, async (req,res) => {
     const affectedRows = await service.deleteProduct(req.params.id)
     if(affectedRows == 0)
         res.status(404).json("no record with given id : " + req.params.id)
@@ -27,12 +28,12 @@ router.delete("/:id", async (req,res) => {
    
 })
 
-router.post("/", async (req,res) => {
+router.post("/", auth, async (req,res) => {
     const affectedRows = await service.addOrEditProduct(req.body)
     res.status(201).send("created successfully")
 })
 
-router.put("/:id", async (req,res) => {
+router.put("/:id", auth, async (req,res) => {
     const affectedRows = await service.addOrEditProduct(req.body, req.params.id)
     if(affectedRows == 0)
         res.status(404).json("no record with given id : " + req.params.id)
